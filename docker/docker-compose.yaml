@@ -18,7 +18,7 @@ volumes:
 
 services:
   generator:
-    image: 'stanislawko/data-generator-microservice:latest'
+    image: 'ilyalisov/data-generator-microservice:latest'
     networks:
       - app
     depends_on:
@@ -30,7 +30,7 @@ services:
       - '8081:8081'
 
   analyser:
-    image: 'stanislawko/data-analyser-microservice:latest'
+    image: 'ilyalisov/data-analyser-microservice:latest'
     networks:
       - app
     depends_on:
@@ -58,12 +58,12 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
       - KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-      - DEBEZIUM_KAFKA_BROKER_ID=${KAFKA_BROKER_ID}
+      - KAFKA_BROKER_ID=${KAFKA_BROKER_ID}
     ports:
       - '8083:8083'
 
   zookeeper:
-    image: 'confluentinc/cp-zookeeper:latest'
+    image: 'stanislawko/cp-zookeeper:latest'
     networks:
       - app
     environment:
@@ -75,7 +75,7 @@ services:
       - zookeeper-data:/var/lib/zookeeper/data
 
   kafka:
-    image: 'confluentinc/cp-kafka:latest'
+    image: 'stanislawko/cp-kafka:latest'
     networks:
       - app
     depends_on:
